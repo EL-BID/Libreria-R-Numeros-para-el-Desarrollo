@@ -17,12 +17,9 @@ iadbget.raw <- function(url) {
 
 #' Internal function to get the urls of the API
 #'
-#' List with 2 entries. The first one with the base_url and the second one with the utils_url#' @export
+#' List with 2 entries. The first one with the base_url and the second one with the utils_url#' 
 #' 
-#' @return List with 2 entries. The first one with the base_url and the second one with the utils_url#' @export
-#' @examples
-#' iadburls()
-#' iadburls()
+#' @return List with 2 entries. The first one with the base_url and the second one with the utils_url#' 
 iadburls <- function() {
   
   base_url <- "http://api-data.iadb.org/"

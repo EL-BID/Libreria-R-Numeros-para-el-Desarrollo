@@ -7,13 +7,9 @@
 iadburls()
 }
 \value{
-List with 2 entries. The first one with the base_url and the second one with the utils_url#' @export
+List with 2 entries. The first one with the base_url and the second one with the utils_url#'
 }
 \description{
-List with 2 entries. The first one with the base_url and the second one with the utils_url#' @export
-}
-\examples{
-iadburls()
-iadburls()
+List with 2 entries. The first one with the base_url and the second one with the utils_url#'
 }
 

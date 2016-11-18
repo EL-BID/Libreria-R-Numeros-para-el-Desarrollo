@@ -7,7 +7,7 @@
 iadbmsearch(value = "ALL")
 }
 \arguments{
-\item{searchvalue}{Character string. 'ALL' or the IndicatorCode}
+\item{value}{Character string. 'ALL' or the IndicatorCode}
 }
 \value{
 Data frame with IndicatorCode, DataSetName, IndicatorName, IndicatorLongName, IndicatorShortDef,
@@ -19,7 +19,7 @@ GeneralComment, LimitationException and SourceComment
 Data frame with series code, name, description, and source for the IADB
 }
 \examples{
-iadbmsearch(value='ALL')
+iadbmsearch()
 iadbmsearch(value='SOC_050')
 }
 
