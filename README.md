@@ -52,3 +52,6 @@ head(data)
 library(ggplot2)
 ggplot(data, aes(x=Year, y=AggregatedValue, color=CountryTableName)) + geom_point() +   xlab('Year') + ylab('% house holds economically headed by females')
 ```
+
+![% house holds economically headed by females in Argentina and Colombia](https://raw.githubusercontent.com/arcuellar88/iadbstats/master/FemaleHouseHolds.png)
+
