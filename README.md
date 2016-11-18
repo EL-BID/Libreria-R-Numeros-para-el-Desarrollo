@@ -6,7 +6,7 @@ The Inter-american development bank has a lot of data  on Latin American and Car
 https://github.com/vincentarelbundock/WDI
 
 
-# Searching metadata of the indicators data
+# Searching metadata of the indicators
 
 You can download the metadata of all the indicators or a specific set of indicators
 
