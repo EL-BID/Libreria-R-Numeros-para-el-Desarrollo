@@ -1,0 +1,20 @@
+Package: idbstats
+Type: Package
+Title: Access to the data and statistics from Numbers for Development of the Inter-American Development Bank API 
+Version: 1.0
+Date: 2016-11-17
+Author: Alejandro Rodriguez Cuellar
+Maintainer: Alejandro Rodríguez Cuéllar <alejandroro@iadb.org>
+Description: Tool to download the metadata and data of the indicators from Numbers for Development of the Inter-American Development Bank
+<https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment>
+c(
+  person("Alejandro", "Rodríguez Cuéllar", email = "alejandroro@iadb.org", role = c("aut", "cre"))
+  )
+License: MIT + file LICENSE
+
+Depends:
+    R (>= 2.10)
+Imports:
+    httr,
+    jsonlite
+    stringr
