@@ -1,4 +1,4 @@
-#Inter-American Development Bank
+#R library to download data form the Inter-American Development Bank
 ##Numbers for Development
 
 The Inter-american development bank has a lot of data  on Latin American and Caribbean countries at a granular level not available in other sources. https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment
