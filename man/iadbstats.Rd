@@ -21,7 +21,7 @@ AggregationLevel, AggregatedValue, UOM
 Data frame with the data of the specified indicators and countries
 }
 \examples{
-iadbstats(country="COL",frequency="year",indicatorcode="ALL")
-iadbstats(country="ARG,COL",frequency="year",indicatorcode="ALL")
+iadbstats(country="COL",frequency="year",indicatorcode="SOC_050")
+iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
 }
 

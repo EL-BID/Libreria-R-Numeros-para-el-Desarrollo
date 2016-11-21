@@ -20,6 +20,6 @@ Data frame with series code, name, description, and source for the IADB
 }
 \examples{
 iadbmsearch()
-iadbmsearch(value='SOC_050')
+iadbmsearch(value="SOC_050")
 }
 

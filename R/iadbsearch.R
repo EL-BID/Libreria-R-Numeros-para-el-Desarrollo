@@ -10,12 +10,12 @@
 #' GeneralComment, LimitationException and SourceComment
 #' @examples
 #' iadbmsearch()
-#' iadbmsearch(value='SOC_050')
+#' iadbmsearch(value="SOC_050")
 #' @export
 iadbmsearch <- function(value = 'ALL'){
   
   urlmeta = "metadata/indicator"
-  searchType = "?searchtype=name"
+  searchType = "?searchtype=code"
   searchvalue = paste0("&searchvalue=",value)
   searchLanguage = "&languagecode=EN"
   
@@ -23,7 +23,7 @@ iadbmsearch <- function(value = 'ALL'){
   
   url = paste0(urls$base_url,urlmeta,searchType,searchvalue,searchLanguage,urls$utils_url)
   
-  #url
+  print(url)
   iadbget.raw(url)  
 }
 

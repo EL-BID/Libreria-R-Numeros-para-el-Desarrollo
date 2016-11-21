@@ -10,13 +10,15 @@ iadbstats.list(frequency = "year", indicatorCodes)
 \item{frequency}{Character string. Frequency of the indicators Year for yearly.}
 
 \item{indicatorCodes}{vector of indicator codes c("SOC_050","SOC_057")}
-
-\item{country}{Character string. ISO3 code of the countries. E.g COL for Colombia or 'ALL' for all the countries}
 }
 \value{
 Data frame with  CountryCode, CountryTableName, IndicatorCode, IndicatorName, TopicName, SubTopicName, Year, Quarter, AggregationLevel, AggregatedValue, UOM
 }
 \description{
 Data frame with the data of the specified indicators and countries
+}
+\examples{
+codes=c("SOC_050","SOC_057")
+iadbstats.list(indicatorCodes=codes)
 }
 

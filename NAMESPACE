@@ -2,3 +2,4 @@
 
 export(iadbmsearch)
 export(iadbstats)
+export(iadbstats.list)
