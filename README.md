@@ -6,7 +6,13 @@ The Inter-american development bank has a lot of data  on Latin American and Car
 #Based on:
 https://github.com/vincentarelbundock/WDI
 
-
+# Installation
+```r
+install.packages('devtools')
+library(devtools)
+install_github('arcuellar88/iadbstats')
+library('idbstats') 
+```
 # Searching metadata of the indicators
 
 You can download the metadata of all the indicators or a specific set of indicators
