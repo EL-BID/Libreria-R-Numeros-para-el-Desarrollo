@@ -11,7 +11,7 @@ https://github.com/vincentarelbundock/WDI
 install.packages('devtools')
 library(devtools)
 install_github('arcuellar88/iadbstats')
-library('idbstats') 
+library('iadbstats') 
 ```
 # Searching metadata of the indicators
 
