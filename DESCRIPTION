@@ -1,4 +1,4 @@
-Package: idbstats
+Package: iadbstats
 Type: Package
 Title: Access to the data and statistics from Numbers for Development of the Inter-American Development Bank API
 Version: 1.0
