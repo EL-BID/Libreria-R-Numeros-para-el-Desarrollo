@@ -1,27 +1,38 @@
-#R library to download data form the Inter-American Development Bank
-##Numbers for Development
+# API Números para el Desarrollo (iadbstats)
+---
+*Iadbstats* es la librería en R que permite la descarga automática a un ambiente de desarrollo en R, de los catálogos de datos alojados en el portal de datos abiertos del Banco Interamericano de Desarrollo, ([Números para el Desarrollo](https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment)). Este portal dispone de los indicadores socioeconómicos de América Latina y el Caribe más relevantes.
 
-The Inter-american development bank has a lot of data  on Latin American and Caribbean countries at a granular level not available in other sources. https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment
+Se trata de una recopilación de siete fuentes de datos:  
+* Agrimonitor: Portal para el monitoreo de políticas agrícolas en la Región. 
+* INTrade: Un portal en línea que reúne información de integración y comercio en la región. 
+* Latin Macro Watch: Indicadores con datos macroeconómicos, sociales, de comercio exterior, flujos de capital, mercados y gobernabilidad. 
+* Gestión Pública: Conjunto de indicadores de Gestión Pública basados en metodologías desarrolladas por el BID sobre el desempeño de la Gestión para Resultados en el Desarrollo (GpRD) y del Servicio Civil en América Latina y el Caribe. 
+* Pulso Social: Conjunto completo de indicadores clave sobre las condiciones de vida de la población de América Latina y el Caribe. 
+* SIMS: Principal fuente de información sobre mercados laborales de América Latina y el Caribe. 
+* Sociómetro: Conjunto de datos de indicadores sociales que aportan información sobre condiciones socioeconómicas de América Latina y el Caribe.
 
-#Based on:
-https://github.com/vincentarelbundock/WDI
+```
+Esta librería está basada en: https://github.com/vincentarelbundock/WDI_
+```
 
-# Installation
+## Cómo instalar
+Introduce lo siguiente en la consola de comandos de R:
 ```r
 install.packages('devtools')
 library(devtools)
-install_github('arcuellar88/iadbstats')
+install_github('EL-BID/iadbstats-libreria-R')
 library('iadbstats') 
 ```
-# Searching metadata of the indicators
+## Cómo utilizar
+### Búsqueda de metadatos de los indicadores
 
-You can download the metadata of all the indicators or a specific set of indicators
+Puedes acceder a los metadatos de todos los indicadores o especificar un conjunto de indicadores.
 
 ```r
 iadbmsearch(value='ALL')
 ```
 
-Which produces this: 
+A continuación una muestra de las cinco primeras filas: 
 
 ```r
 > iadbmsearch(value='ALL')[1:5,1:5]
@@ -34,12 +45,12 @@ Which produces this:
 > 
 ```
 
-# Download the data
+### Descarga de los datos
 
 ```r
 data<-iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
 ```
-Preview data: 
+Previsualización de datos: 
 
 ```r
 head(data)
@@ -52,13 +63,27 @@ head(data)
 6         ARG        Argentina       SOC_050 % of households economically headed by females Social Outlook Demographics 2000                           Year          31.698 PERCENT 
 ```
 
-
-#Use the data
+### Uso de los datos
 
 ```r
 library(ggplot2)
 ggplot(data, aes(x=Year, y=AggregatedValue, color=CountryTableName)) + geom_point() +   xlab('Year') + ylab('% house holds economically headed by females')
 ```
 
-![% house holds economically headed by females in Argentina and Colombia](https://raw.githubusercontent.com/arcuellar88/iadbstats/master/FemaleHouseHolds.png)
+![% house holds economically headed by females in Argentina and Colombia](https://cloud.githubusercontent.com/assets/9949001/24076430/b5c724ae-0c06-11e7-95cd-991aec265ef9.png)
 
+# Más información
+----
+Esta herramienta está basado en el trabajo original de [Vincent Arel-Bundock](https://github.com/vincentarelbundock), [WDI](https://github.com/vincentarelbundock/WDI)
+
+## Licencia
+[LICENSE](https://github.com/EL-BID/Libreria-R-Numeros-para-el-Desarrollo/blob/master/Licencia/GPL-3)
+
+## Autores
+- Vincent Arel-Bundock
+- [Alejandro Rodriguez Cuellar](https://github.com/arcuellar88)
+- Socrata: Proveedor de api en el portal de Datos abiertos.
+
+## Links útiles
+- https://data.iadb.org/
+- [Sobre el API](https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment)
