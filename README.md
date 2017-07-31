@@ -23,6 +23,9 @@ library(devtools)
 install_github('EL-BID/Libreria-R-Numeros-para-el-Desarrollo')
 library('iadbstats') 
 ```
+### Requerimientos
+* Versión de R 3.3.1
+
 ## Cómo utilizar
 ### Búsqueda de metadatos de los indicadores
 
