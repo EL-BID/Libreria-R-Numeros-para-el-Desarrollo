@@ -1,0 +1,47 @@
+---
+title: "Taller R BID"
+author: "Marta Alonso Fernández y Jose Luis Delgado Davara"
+date: "Monday, July 31, 2017"
+output: html_document
+---
+
+## Introducción 
+
+## Instalación de R y Rstudio
+
+
+
+Paso 1: desconectate de la red Banco y con'ectate a Guest B
+## Descarga de librerias
+```{r}
+install.packages('devtools')
+library(devtools)
+install_github('arcuellar88/iadbstats')
+library('iadbstats') 
+
+install.packages('ggplot2')
+library(ggplot2)
+```
+
+## Consulta los inidicadores disponibles
+```{r}
+A = iadbmsearch(value='ALL')
+
+data<-iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
+```
+
+## Disbuja los indicadores en una gráfica
+```{r}
+ggplot(data, aes(x=Year, y=AggregatedValue, color=CountryTableName)) + geom_point() +   xlab('Year') + ylab('% house holds economically headed by females')
+```
+
+## Extrae los indicadores en una tabla .csv para abrirlos en excel
+
+Utilizamos esta libreria? http://www.rpubs.com/dnchari/rcharts
+
+Para instalar: https://ramnathv.github.io/rCharts/
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
