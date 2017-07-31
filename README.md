@@ -1,4 +1,4 @@
-# API Números para el Desarrollo (iadbstats)
+# Librería R - Números para el Desarrollo (iadbstats)
 ---
 *Iadbstats* es la librería en R que permite la descarga automática a un ambiente de desarrollo en R, de los catálogos de datos alojados en el portal de datos abiertos del Banco Interamericano de Desarrollo, ([Números para el Desarrollo](https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment)). Este portal dispone de los indicadores socioeconómicos de América Latina y el Caribe más relevantes.
 
@@ -20,7 +20,7 @@ Introduce lo siguiente en la consola de comandos de R:
 ```r
 install.packages('devtools')
 library(devtools)
-install_github('EL-BID/iadbstats-libreria-R')
+install_github('EL-BID/Libreria-R-Numeros-para-el-Desarrollo')
 library('iadbstats') 
 ```
 ## Cómo utilizar
