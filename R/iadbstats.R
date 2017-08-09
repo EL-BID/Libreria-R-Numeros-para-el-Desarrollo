@@ -60,7 +60,7 @@ iadbstats.list <- function(frequency="year",indicatorCodes){
   for(i in 1:length(df))
   {
     #Pull the data for a subset of 10 indicators
-    ind = paste(as.character(df[[1]]),collapse=",")
+    ind = paste(as.character(df[[i]]),collapse=",")
     indicator_list[[i]] = iadbstats(country=scountry,frequency=frequency,indicatorcode=ind)
   }  
   
