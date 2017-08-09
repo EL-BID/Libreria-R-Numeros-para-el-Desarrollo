@@ -4,6 +4,7 @@
 #' Data frame with series code, name, description, and source for the IADB
 #' 
 #' @param value Character string. 'ALL' or the IndicatorCode
+#' @param lang Language. Default EN: English ES for Spanish
 #' @return Data frame with IndicatorCode, DataSetName, IndicatorName, IndicatorLongName, IndicatorShortDef,
 #' IndicatorSynonym, IndicatorSource, TopicID, TopicName, SubTopicName, AggregationMethod, BasePeriod, Derivation Method,
 #' OtherNote, Periodicity, PowerCode, Predefinedregion, PredefinedCountry, redefinedTopic, ReferencePerior, UOM, 
@@ -12,12 +13,12 @@
 #' iadbmsearch()
 #' iadbmsearch(value="SOC_050")
 #' @export
-iadbmsearch <- function(value = 'ALL'){
+iadbmsearch <- function(value = 'ALL', lang='EN'){
   
   urlmeta = "metadata/indicator"
   searchType = "?searchtype=code"
   searchvalue = paste0("&searchvalue=",value)
-  searchLanguage = "&languagecode=EN"
+  searchLanguage = paste0("&languagecode=",lang)
   
   urls = iadburls()
   
