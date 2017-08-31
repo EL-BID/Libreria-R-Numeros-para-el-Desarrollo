@@ -1,7 +1,7 @@
 ---
-title: "Taller R BID"
+title: "Numbers4Development R Tutorial BID"
 author: "Marta Alonso Fernandez (martaal@iadb.org) & Jose Luis Delgado Davara (josede@iadb.org)"
-date: "Thursday, July 31, 2017"
+date: "Thursday, July 31st, 2017"
 output:
   html_document: default
   html_notebook: default
@@ -26,7 +26,7 @@ R is a language and environment for statistical computing and graphics. To make 
 * If you are looking for understanding how to navigate RStudio check out this [RStudio 101 tutorial](http://dss.princeton.edu/training/RStudio101.pdf) 
 
 ### 1.4 Download the workshop guide and get ready
-Download this file from the following [link](https://github.com/malon/Libreria-R-Numeros-para-el-Desarrollo/blob/Tutorial/Tutorial.Rmd) and open it in RStudio.
+Download the workshop tutorial from the following <a href="https://raw.githubusercontent.com/EL-BID/Libreria-R-Numeros-para-el-Desarrollo/master/Tutorial/Tutorial.Rmd" download="Tutorial.Rmd">link</a> and open it in RStudio.
 
 This is a RMarkDown file, it contains both explanations and code for you to execute. If you want to understand the MarkDown sintaxis better, go to the following menu: Help>Markdown Quick Reference.
 
