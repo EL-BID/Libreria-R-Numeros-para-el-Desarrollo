@@ -1,0 +1,501 @@
+---
+title: "Taller R BID"
+author: "Marta Alonso Fernandez (martaal@iadb.org) & Jose Luis Delgado Davara (josede@iadb.org)"
+date: "Thursday, July 31, 2017"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+# 1. Introduction
+
+### 1.1 Installation of R and RStudio
+You should have installed both R and RStudio.
+
+Use the following links, download the latest version for your operative system. Install and follow the instructions:
+
+* [R](https://cran.rstudio.com/)
+* [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+### 1.2 What is R?
+R is a language and environment for statistical computing and graphics. To make a long story really short we could say that it is the Free Software version of a previous language called S dedicated to statistical processing. See some documentation in the following paragraph.
+
+### 1.3 Some Tutorials
+
+* If you want to dive into the R language basics follow this [tutorial](http://www.r-tutor.com/r-introduction)
+* If you are looking for understanding how to navigate RStudio check out this [RStudio 101 tutorial](http://dss.princeton.edu/training/RStudio101.pdf) 
+
+### 1.4 Download the workshop guide and get ready
+Download this file from the following [link](https://github.com/malon/Libreria-R-Numeros-para-el-Desarrollo/blob/Tutorial/Tutorial.Rmd) and open it in RStudio.
+
+This is a RMarkDown file, it contains both explanations and code for you to execute. If you want to understand the MarkDown sintaxis better, go to the following menu: Help>Markdown Quick Reference.
+
+**Code cells** are in grey color called **"Code chunks"** between three single quotes. To execute them you just have to press the green triangle in the upper right corner. 
+
+To create a new **"Code chunk"** find the **"Insert"** button over this file, press it and select "R" as type of code. A **"Code chunk"** will be created wherever your cursor is placed.
+
+Now follow the steps of the tutorial and execute one cell each time checking what your result is.
+
+
+### 1.5 Inline output vs Console
+
+To see the output directly inside the file, find the wheel in the menu over this file and press it. Then select **"Chunk Output Inline"**. 
+
+Whereas if you select **"Chunk Output in Console"** you will see the results in the window **Console** directly below the window code, and the plots you draw will show up in the **Plots** tag of the lower right window of RStudio. Plotting any graph in the **Plots** tag will allow you export your graphs into a file, plottin inline with your code will allow to create a file at the end of the workshop with all the contents together.  
+
+
+# 2. Setting up the environment 
+### 2.1 Necessary R libraries
+Be aware that if you are using the BID corporate wifi you have to disconnect from this network and connect to the open BID-GUEST network. This is a hidden network, you might not see this network in the list of available ones. You should add a new network and type the name of the SSID manually: "BID-GUEST".
+
+```{r}
+# This is a comment, anything written after a numeral symbol (#) inside a "Code chunk" 
+# will not be executed
+```
+
+```{r results="hide"}
+chooseCRANmirror(graphics=FALSE, ind=1)
+
+# DEVTOOLS contains basic functions in R
+# install library
+install.packages('devtools')
+# load library
+library(devtools)
+```
+
+```{r results="hide"}
+# GGPLOT will be used to create graphs
+install.packages('ggplot2')
+library(ggplot2)
+```
+
+
+
+```{r results="hide"}
+# This is the R library to access Numbers for development
+install_github('EL-BID/Libreria-R-Numeros-para-el-Desarrollo')
+library('iadbstats') 
+```
+
+
+
+# 3. The express path: results in ten seconds
+
+We are going to access the API and create a fast plot representing the Percentage of house holds economically headed by females, comparing a couple of countries.
+
+In this chunk of code we just use two functions:
+
+* first one is **"iadbstats"**, with which we are accessing the API to retrieve an indicator and we store the result in the variable data. To call **iadbstats** directly we should know the name of the indicator we want to download, in this case **SOC_050** which is the identifier of the indicator **"% of households economically headed by females"**
+* second one is **"ggplot"** a function to plot graphs in this case we are combining a **point graph** and a **line graph**
+
+You can run the chunk of code and see the results, the code is not that difficult to understand, and you can change anything you want in your graph and rerun the chunk so you can se your results.
+
+
+```{r}
+# note that the arrow "<-" is the same than "=", we are assigning a value to the variable data
+data <- iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
+ggplot(data, aes(x=Year, y=AggregatedValue, color=CountryTableName, group = CountryTableName)) + 
+  geom_point() +   
+  geom_line() +
+  xlab('Year') + 
+  ylab('% Percentage') +
+  theme(text = element_text(size=7)) +
+  ggtitle('% house holds economically headed by females') +
+  theme(plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))
+```
+
+
+**NOTE**: You can use **"All"** for **countries** and **indicatorcode** but not at the same time:
+
+* When **All** indicators data is requested, data can be requested for a maximum of 4 countries (ex: country="ARG,COL")
+* When **All** country data is requested, data can be requested for a maximum of 10 indicators (ex: indicatorcode="SOC_050,SOC_1050")
+
+### 3.1 Exporting this graph
+Later in this workshop we will create an HTML file where you will keep your code, your results and your instructions. But if you want to export this plot right now do this:
+
+* Change the output to console as we explained before (press the little wheel of the menu and select **Chunk Output in Console**, select **keep your output** in the pop up menu, to keep what you already have in your file, if you remove it you can recreate it later)
+* Run again the **Code chunk**, you will see the graph now in the lower right window under the tag Plots. 
+* Use the button **Export** to download the graph either in PNG or PDF format.
+* Change the Output back to inline to keep working in the workshop (wheel > Chunk Output Inline)
+
+# 4. The long path: working deeper with the API and R
+
+### 4.1 Accessing indicators metadata through the API
+
+#### 4.1.1 What is metadata?
+Metadata is literally data about data :). Metadata provide information that characterized the given data, they could describe its content, quality, conditions, history, availability and other features.
+
+#### 4.1.2 What is an API?
+API (Application Programming Interface) is a communication interface between software components. They offer access to several services, in our case the [Numbers 4 Development API](https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment) offers access to the information it contains. The easieast way to access is via a browser, try to copy the following link in you browser and see the result you obtained.
+http://api-data.iadb.org/metadata/country?searchtype=code&searchvalue=COL&languagecode=en&responsetype=xml
+
+You are accesing metadata information from Colombia. In this case using a format called XML. What we will do in this workshop is creating calls to the API, but instead of using a browser we will use R code so we can process the results easily.
+
+#### 4.1.3 How to access the metadata from Numbers4Development?
+N4D API provides metadata about:
+
+* Country
+* Indicator -> the only one retrieved by the current R library 
+* Data Topics
+* Data Sub Topics
+
+The R function to access metadata about indicators is **"iadbmsearch"** with parameter value='ALL' to access metadata of all the indicators or value='<indicator_code>' to get the metadata of just one specific indicator. We store the results in an object called **meta_ind**:
+
+```{r}
+# saving the response from the API in the meta_ind object
+meta_ind <- iadbmsearch(value='All')
+```
+
+
+#### 4.1.4 Working with our metadata results
+
+Have a look at the results first: 
+
+```{r results="hide"}
+# Note: This Code chunk uses results="hide" (see it in RStudio) because we doesn´t want these results in our
+# final file when we create it, the output will have too many columns to be presented in the file
+
+# Inspecting the first six lines of the object meta_ind (with the "head" command) 
+head(meta_ind)
+```
+
+What class of object is meta_ind? We are going to check its type and the number of lines it contains.
+
+```{r}
+# Using the class and nrow commands
+class(meta_ind)
+nrow(meta_ind)
+```
+
+**DataFrames** are objects that store data tables. You can also see the objects you have created so far in the tab Environment (upper right corner of your RStudio editor). As you can see meta_ind has 1730 rows (observations) and 25 variables (columns). Clicking on the object **meta_ind** you will open a view of the table in the main window.
+
+##### 4.1.4.a. Accessing columns in a DataFrame
+Let´s access only one of the columns, and see how many different values it has:
+
+```{r}
+# We use the symbol $ to acces a column of the dataframe
+topics <- meta_ind$TopicName
+# With the command unique we just see the different values in the column topics
+unique(topics)
+```
+
+##### 4.1.4.b. Accessing rows in a DataFrame
+Now let's see how to access several rows per value (how many lines, or SubTopics, has the Topic "Economy"):
+
+```{r}
+# We are selecting the rows where the TopicName is Economy, notice the comma afterwards meaning we ar selecting all the columns for all the rows that fulfill this condition.
+economy <- meta_ind[meta_ind$TopicName == "Economy", ]
+nrow(economy)
+```
+
+
+
+##### 4.1.4.c. Filtering DataFrames
+We are going to filter down the DataFrame a little bit, searching for gender indicators, i.e. indicators that contain either the word "women" or "male" in its description, so we will have a smaller group of indicators, only those that include gender.
+
+First we create a filter called gender_filter:
+```{r}
+# First, we need to create the filter, searching for those keywords in the column IndicatorName. 
+# We add ignore.case so we can search for women or Women indistinctly.
+gender_filter <- grepl(pattern = "women|male", meta_ind$IndicatorName, ignore.case = TRUE)
+
+# The filter returns the rows with matching conditions, 
+# lets see the first elements of the filter with the command head
+head(gender_filter)
+```
+
+Then we applied the filter to the DataFrame and create a new DataFrame called **meta_ind_gender**:
+
+```{r}
+# We need to load the library dplyr to use its filter function
+library(dplyr)
+
+# We create a new DataFrame meta_ind_gender applying the filter we created to the original one
+meta_ind_gender <- filter(meta_ind, gender_filter)
+
+# How many lines has the new table? 
+# Remember that you can check the size of the new object also in the Environment tab on the upper right corner
+nrow(meta_ind_gender)
+```
+
+
+##### 4.1.4.d. Grouping inside DataFrames
+We want to know for the **meta_ind_gender** DataFrame or table how many different SubTopicName we have:
+
+```{r}
+# We use the group_by command (from dplyr library) to create the grouped object
+grouped <- group_by(meta_ind_gender,meta_ind_gender$SubTopicName)
+# Summarise (from dplyr library) reduces multiple values down to a single value, 
+# it is typically used on grouped data 
+summarise(grouped,   n = n())
+```
+
+#### 4.1.5 Searching the indicators of interest
+
+Now that we know what the API responds when asking for indicators metada, we are going to select what indicator we are going to ask the API about. The next steps in chapter 4.1.5 will guide you through how to analyse and search this indicators with code, but there is an alternative here. In the next **code chunk** we are storing the **meta_ind_gender** DataFrame into a CVS file (command separated values) that you can open in Excell and examine all the gender indicators to decide which ones you are interested at.
+```{r}
+# Write CSV in R
+# write.csv(meta_ind_gender, file = "meta_ind_gender.csv")
+```
+
+
+##### 4.1.5.a. Creating tables for Labor Market and Education gender indicators
+
+Reading **education** indicators related to gender and storing it into **meta_ind_g_edu**:
+
+```{r results="hide"}
+# As we´ve seen before we select all the lines that contain "Education"  in the column "SubTopicName". 
+# In this case we only want two columns IndicatorCode and IndicatorName so we indicate that after the comma.
+meta_ind_g_edu <- meta_ind_gender[meta_ind_gender$SubTopicName == "Education", c("IndicatorCode", "IndicatorName")]
+head(meta_ind_g_edu)
+```
+
+
+Reading **labor market** indicators related to gender and storing it into **meta_ind_g_labo**:
+
+```{r results="hide"}
+# We do the same for "Labor Market" SubtopicName
+meta_ind_g_labo <- meta_ind_gender[meta_ind_gender$SubTopicName == "Labor Market", c("IndicatorCode", "IndicatorName")]
+head(meta_ind_g_labo)
+```
+
+
+##### 4.1.5  b.Finding global indicators (15-64)
+
+We are looking for indicators from 15-64 age, since they are divided in age ranges and this is the wider range. Also we are looking in this case for females and males both from rural and urban areas and withouth quintile division for low or high income.
+
+
+```{r}
+# We create and apply a filter like before
+filter_edu <- grepl(pattern = "15-64 age", meta_ind_g_edu$IndicatorName)
+filter(meta_ind_g_edu, filter_edu)
+```
+
+
+```{r}
+#This is a more complicated filter using regular expressions, because if we use the 15-64 it returns too many values
+filter_labo <- grepl(pattern = "employment rate, [a-z]*male, no quint data, 15-64", meta_ind_g_labo$IndicatorName, ignore.case = TRUE)
+
+filter(meta_ind_g_labo, filter_labo)
+```
+
+
+
+##### 4.1.5.3 Selected indicators
+
+These are the selected indicators:
+
+* "SOC_1127": Female Employment Rate
+* "SOC_2683": Male Employment Rate
+* "SOC_1328": % Female completing prim school
+* "SOC_686": % Male completing prim school
+
+We create a structure to store them called vector, like a list of components. We use to create it the funcion **"c"**:
+
+```{r}
+
+# Vector with indicators description
+ind_vector <- c("Female Employment Rate", "Male Employment Rate",
+             "% Female completing prim school",
+             "% Male completing prim school") 
+
+# Names of the vectors so we can access the description easily
+names(ind_vector) <- c("SOC_1127", "SOC_2683", "SOC_1328", "SOC_686") 
+```
+
+```{r}
+ind_vector["SOC_1127"]
+```
+
+### 4.2 Accessing indicators data through the API
+
+Now that we know from which indicators we want to ask the API about we are going to use the function **iadbstats.list** from the iadbstats library with the list of indicators we want to retrieve data from. And we store the results in a DataFrame called **ind_data**.
+
+The function **iadbstats.list** pulls the data for a vector of indicators and *ALL* the countries. We could have used the function **iadbstats** that we used in chapter 3 in order to select just a list of countries.
+
+
+```{r}
+# Download indicator data for a vector of indicators and all the countries
+ind_data <- iadbstats.list(indicatorCodes = names(ind_vector))
+ind_data <- iadbstats(country="All",frequency="year",indicatorcode="SOC_1127,SOC_2683,SOC_1328,SOC_686")
+
+# Select columns just the columns we are interested in
+work_data <- ind_data[c("CountryCode", "IndicatorCode", "Year", "AggregatedValue", "IndicatorName")] 
+head(work_data)
+unique(work_data$IndicatorCode)
+unique(work_data$CountryCode)
+```
+
+We have to be careful about the type of data of the **AggregateValue** column, since we want this column to contain numbers, in order to work with them. Let's check what type is it:
+
+```{r}
+typeof(work_data$AggregatedValue)
+```
+
+
+#####4.2.1. Converting percentages to numeric and creating a new column
+
+We are going to create a new column in that DataFrame named **Percentage**, transforming the values of **AggregatedValue** into numbers.
+
+```{r}
+work_data$Percentage <- as.numeric(as.character(work_data$AggregatedValue))
+head(work_data)
+```
+
+
+
+#####4.2.2. Plotting - comparing indicators by country
+--> explanations
+```{r}
+female_prim <- subset(work_data, IndicatorCode == "SOC_1328")
+#female_prim <- subset(work_data, IndicatorCode == "SOC_1328" & (CountryCode == 'ARG' | CountryCode == 'BOL' | CountryCode == 'BRA' | CountryCode == 'CHL')) 
+head(female_prim)
+ggplot(data = female_prim , aes(x=Year, y=Percentage, color=CountryCode, group = CountryCode)) +
+  geom_point() +   
+  geom_line() +
+  xlab('Year') + 
+  ylab('% Percentage') +
+  theme(text = element_text(size=7)) +
+  scale_y_continuous(breaks = seq(20, 100, 5)) +
+  scale_x_discrete(breaks = seq(1986, 2017, 2)) +
+  ggtitle("% Female completing at least primary school") +
+  theme(plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))
+
+```
+
+#####4.2.3. Plotting - comparing indicators by country
+
+```{r}
+head(work_data)
+max(work_data$Year)
+work_data_2016 <- work_data[work_data$Year == "2016" & (work_data$IndicatorCode == "SOC_1127" | work_data$IndicatorCode =="SOC_2683"), ]
+head(work_data_2016)
+unique(work_data_2016$CountryCode)
+unique(work_data_2016$IndicatorCode)
+unique(work_data_2016$Year)
+work_data_2016$Gender <- ifelse(work_data_2016$IndicatorCode == "SOC_1127", "Female", "Male")
+head(work_data_2016)
+```
+
+
+```{r}
+
+ggplot(data=work_data_2016, aes(x=CountryCode, y=Percentage, fill=Gender)) +
+    geom_bar(stat="identity", position=position_dodge(), colour="black") +
+    scale_fill_manual(values=c("#7fbf7b", "#67a9cf")) +
+    ggtitle('Employment rate 2016') +
+    theme(plot.title = element_text(hjust = 0.5, size = 15, face = "bold")) +
+    xlab("Country")
+  
+  
+```
+
+#####4.2.4. Plotting - let's use Excel Pivot Tables
+
+
+```{r}
+head(work_data)
+max(work_data$Year)
+edu_data_2016 <- work_data[work_data$Year == "2016" & (work_data$IndicatorCode == "SOC_1328" | work_data$IndicatorCode =="SOC_686"), ]
+head(edu_data_2016)
+unique(edu_data_2016$CountryCode)
+unique(edu_data_2016$IndicatorCode)
+unique(edu_data_2016$Year)
+edu_data_2016$Gender <- ifelse(edu_data_2016$IndicatorCode == "SOC_1328", "Female", "Male")
+head(work_data_2016)
+```
+
+```{r}
+#write.csv(edu_data_2016, file="edu_data_2016.csv")
+```
+
+
+
+
+#####4.2.4. Plotting - multiple plots
+
+```{r}
+data1 <- work_data[work_data$IndicatorCode == "SOC_1127" & work_data$CountryCode == 'URY',]
+data2<- work_data[work_data$IndicatorCode == "SOC_2683" & work_data$CountryCode == 'URY',]
+data3<- work_data[work_data$IndicatorCode == "SOC_1328" & work_data$CountryCode == 'URY',]
+data4<- work_data[work_data$IndicatorCode == "SOC_686" & work_data$CountryCode == 'URY',]
+
+```
+
+```{r}
+head(data1)
+unique(data1$CountryCode)
+unique(data1$IndicatorCode)
+ind_vector["SOC_1127"]
+```
+
+
+
+```{r results="hide"}
+install.packages('gridExtra')
+library('gridExtra')
+```
+
+```{r}
+p1 <- ggplot(data = data1 , aes(x=Year, y=Percentage, group = IndicatorCode)) + geom_point() + geom_line(color= 'blue') + ggtitle(ind_vector["SOC_1127"]) + scale_x_discrete(breaks = seq(1990, 2017, 4)) + scale_y_continuous(breaks = seq(20, 100, 5)) + ylim(c(40,100))
+#+ scale_x_discrete(breaks = seq(1990, 2016, 5))
+p2 <- ggplot(data = data2, aes(x=Year, y=Percentage,  group = IndicatorCode)) + geom_point() + geom_line(color= 'blue') + ggtitle(ind_vector["SOC_2683"]) + scale_x_discrete(breaks = seq(1990, 2017, 4)) + scale_y_continuous(breaks = seq(20, 100, 5)) + ylim(c(40,100))
+p3 <- ggplot(data = data3 , aes(x=Year, y=Percentage, group = IndicatorCode)) + geom_point() + geom_line(color= 'blue') + ggtitle(ind_vector["SOC_1328"]) + scale_x_discrete(breaks = seq(1990, 2017, 4)) + scale_y_continuous(breaks = seq(20, 100, 5)) + ylim(c(40,100))
+p4 <- ggplot(data = data4 , aes(x=Year, y=Percentage,  group = IndicatorCode)) + geom_point() + geom_line(color= 'blue') + ggtitle(ind_vector["SOC_686"]) + scale_x_discrete(breaks = seq(1990, 2017, 4)) + scale_y_continuous(breaks = seq(20, 100, 5)) + ylim(c(40,100))
+
+grid.arrange(p1, p3, p2, p4, ncol = 2)
+
+
+#ggplot(data = subset1 , aes(x=Year, y=AggregatedValue, color=CountryCode, group = CountryCode)) + 
+ # geom_point() +   
+# geom_line() +
+#  xlab('Year') + 
+#  ylab('% house holds economically he
+
+```
+
+
+
+
+```{r}
+#ggplot(data = dataGTM , aes(x=Year, y=AggregatedValue, color=CountryCode, group = CountryCode)) + 
+#  geom_point() +   
+#  geom_line() +
+#  xlab('Year') + 
+#  ylab('% house holds economically headed by females') +
+#  theme(text = element_text(size=7))
+```
+
+```{r}
+#ggplot(data = dataPAN , aes(x=Year, y=AggregatedValue, color=CountryCode, group = CountryCode)) + 
+#  geom_point() +   
+#  geom_line() +
+#  xlab('Year') + 
+#  ylab('% house holds economically headed by females') +
+#  theme(text = element_text(size=7))
+```
+
+```{r}
+#subset(ind2_data, CountryCode == 'GTM')
+```
+
+
+
+
+## Extrae los indicadores en una tabla .csv para abrirlos en excel
+
+Utilizamos esta libreria? http://www.rpubs.com/dnchari/rcharts
+
+Para instalar: https://ramnathv.github.io/rCharts/
+```{r, echo=FALSE}
+plot(cars)
+```
+
+```{r}
+# Write CSV in R
+# write.csv(data1, file = "Data1.csv")
+
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
