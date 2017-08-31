@@ -3,8 +3,8 @@ title: "Numbers4Development R Tutorial BID"
 author: "Marta Alonso Fernandez (martaal@iadb.org) & Jose Luis Delgado Davara (josede@iadb.org)"
 date: "Thursday, July 31st, 2017"
 output:
-  word_document: default
   html_document: default
+  word_document: default
 ---
 
 # 1. Introduction
@@ -266,7 +266,7 @@ head(meta_ind_g_labo)
 ```
 
 
-##### 4.1.5  b.Finding global indicators (15-64)
+##### 4.1.5.b Finding global indicators (15-64)
 
 We are looking for indicators from 15-64 age, since they are divided in age ranges and this is the wider range. Also we are looking in this case for females and males both from rural and urban areas and without quintile division for low or high income.
 
@@ -287,7 +287,7 @@ filter(meta_ind_g_labo, filter_labo)
 
 
 
-##### 4.1.5.3 Selected indicators
+##### 4.1.5.c Selected indicators
 
 These are the selected indicators:
 
