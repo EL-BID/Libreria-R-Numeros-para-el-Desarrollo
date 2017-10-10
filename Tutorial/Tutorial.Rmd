@@ -158,7 +158,7 @@ meta_ind <- iadbmsearch(value='All')
 Have a look at the results first: 
 
 ```{r results="hide"}
-# Note: This Code chunk uses results="hide" (see it in RStudio) because we doesn´t want these results in our
+# Note: This Code chunk uses results="hide" (see it in RStudio) because we doesnÂ´t want these results in our
 # final file when we create it, the output will have too many columns to be presented in the file
 
 # Inspecting the first six lines of the object meta_ind (with the "head" command) 
@@ -176,7 +176,7 @@ nrow(meta_ind)
 **DataFrames** are objects that store data tables. You can also see the objects you have created so far in the tab Environment (upper right corner of your RStudio editor). As you can see meta_ind has 1730 rows (observations) and 25 variables (columns). Clicking on the object **meta_ind** you will open a view of the table in the main window.
 
 ##### 4.1.4.a. Accessing columns in a DataFrame
-Let's�s access only one of the columns, and see how many different values it has:
+Let's´s access only one of the columns, and see how many different values it has:
 
 ```{r}
 # We use the symbol $ to acces a column of the dataframe
@@ -266,7 +266,7 @@ head(meta_ind_g_labo)
 ```
 
 
-##### 4.1.5.b Finding global indicators (15-64)
+#####  4.1.5.b Finding global indicators (15-64)
 
 We are looking for indicators from 15-64 age, since they are divided in age ranges and this is the wider range. Also we are looking in this case for females and males both from rural and urban areas and without quintile division for low or high income.
 
@@ -345,7 +345,7 @@ typeof(my_data$AggregatedValue)
 ```
 
 
-#####4.2.1. Converting percentages to numeric and creating a new column
+##### 4.2.1. Converting percentages to numeric and creating a new column
 
 We are going to create a new column in that DataFrame named **Percentage**, transforming the values of **AggregatedValue** into numbers.
 
@@ -356,7 +356,7 @@ head(my_data)
 
 
 
-#####4.2.2. Plotting - comparing indicators by country
+##### 4.2.2. Plotting - comparing indicators by country
 For one of the Indicators (SOC_1328) which is the "percentage of females that completed at least primary school" we want to compare it for the different countries that we have.
 
 First we create a new DataFrame out of my_data, selecting only the indicator SOC_1328 for all the countries. Later you can uncomment the line in which we are selecting just a number of countries. Then we plot the data.
@@ -377,7 +377,7 @@ ggplot(data = female_prim , aes(x=Year, y=Percentage, color=CountryCode, group =
 
 ```
 
-#####4.2.3. Plotting - comparing the most recent indicators by country and gender
+##### 4.2.3. Plotting - comparing the most recent indicators by country and gender
 
 Which is the most recent year we have indicators for?:
 ```{r}
@@ -418,7 +418,7 @@ ggplot(data=emp_2016, aes(x=CountryCode, y=Percentage, fill=Gender)) +
 # Position_dodge in geom_bar: Dodging preserves the vertical position of an geom while adjusting the horizontal position.
 ```
 
-#####4.2.4. Plotting - let's use Excel Pivot Tables
+##### 4.2.4. Plotting - let's use Excel Pivot Tables
 
 We repeat the previous steps from previous chapter to create **edu_data** in which we will store data for 2016 regarding two indicators:
 
@@ -443,7 +443,7 @@ And we write the resulting DataFrame **edu_2016** into a CSV file to be open and
 
 
 
-#####4.2.5. Plotting - multiple plots
+##### 4.2.5. Plotting - multiple plots
 
 To create a multiple plot we first create 4 different DataFrames, one per each of the four indicators we are working with, and make the selection for just one country.
 
