@@ -19,4 +19,3 @@ Helper function for the data catalog call
 This call is seperate because the data catalog is actaully a different
  API and therefore has a different return structure.
 }
-

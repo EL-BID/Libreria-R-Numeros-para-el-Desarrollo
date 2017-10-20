@@ -2,4 +2,5 @@
 
 export(iadbmsearch)
 export(iadbstats)
+export(iadbstats.countries)
 export(iadbstats.list)

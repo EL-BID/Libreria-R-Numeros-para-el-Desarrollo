@@ -32,7 +32,7 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
   
   #print(lenght(indicatorCode))
   url <- paste0(urls$base_url,urlmeta,searchcountry,searchfrequency,searchLanguage,searchIndicator,urls$utils_url)
-  
+
   #url
   iadbget.raw(url)  
 }
@@ -43,14 +43,15 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
 #' 
 #' @param frequency Character string. Frequency of the indicators Year for yearly. 
 #' @param indicatorCodes vector of indicator codes c("SOC_050","SOC_057")
+#' @param country Character string. ISO3 code of the countries. E.g COL for Colombia or 'ALL' for all the countries
 #' @return Data frame with  CountryCode, CountryTableName, IndicatorCode, IndicatorName, TopicName, SubTopicName, Year, Quarter, AggregationLevel, AggregatedValue, UOM 
 #' @export
 #' @examples
 #' codes=c("SOC_050","SOC_057")
 #' iadbstats.list(indicatorCodes=codes)
-iadbstats.list <- function(frequency="year",indicatorCodes){
+iadbstats.list <- function(frequency="year",indicatorCodes,country="ALL"){
 
-  scountry="ALL"
+  scountry=country
  
   #split the codes into groups of maximum 10 indicator
   df = split(indicatorCodes, ceiling(seq_along(indicatorCodes)/10))
@@ -69,3 +70,26 @@ iadbstats.list <- function(frequency="year",indicatorCodes){
   
   full_data
 }
+
+#' Get the metadata of the countries available in IADB
+#'
+#' Data frame of countries. 1 row per country
+#' 
+#' @return Data frame with CountryCode, ALPHA2Code, WB2Code, CountryShortName, CountryLongName, CountryIncomeGroup, OtherRegionalGroup, CountrySpecialNotes
+#' @examples
+#' iadbstats.countries()
+#' @export
+iadbstats.countries<-function()
+{
+  urls <- iadburls()
+  url_countries<-"metadata/country?searchtype=name&searchvalue=All&Languagecode=en&"
+  
+  #print(lenght(indicatorCode))
+  url <- paste0(urls$base_url,url_countries,urls$utils_url)
+  
+  return_list<-iadbget.raw(url)
+  df_iadb_ct<-as.data.frame(return_list)
+  
+  df_iadb_ct
+}
+

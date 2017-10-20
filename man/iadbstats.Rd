@@ -19,9 +19,11 @@ AggregationLevel, AggregatedValue, UOM
 }
 \description{
 Data frame with the data of the specified indicators and countries
+All countries and All indicators cannot be requested
+When All indicators data is requested, data can be requested for a maximum of 4 countries
+When All country data is requested, data can be requested for a maximum of 10 indicators (see iadbstats.list)
 }
 \examples{
 iadbstats(country="COL",frequency="year",indicatorcode="SOC_050")
 iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
 }
-

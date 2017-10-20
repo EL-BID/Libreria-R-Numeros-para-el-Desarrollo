@@ -4,10 +4,12 @@
 \alias{iadbmsearch}
 \title{Get the metadata of the indicators}
 \usage{
-iadbmsearch(value = "ALL")
+iadbmsearch(value = "ALL", lang = "EN")
 }
 \arguments{
 \item{value}{Character string. 'ALL' or the IndicatorCode}
+
+\item{lang}{Language. Default EN: English ES for Spanish}
 }
 \value{
 Data frame with IndicatorCode, DataSetName, IndicatorName, IndicatorLongName, IndicatorShortDef,
@@ -22,4 +24,3 @@ Data frame with series code, name, description, and source for the IADB
 iadbmsearch()
 iadbmsearch(value="SOC_050")
 }
-

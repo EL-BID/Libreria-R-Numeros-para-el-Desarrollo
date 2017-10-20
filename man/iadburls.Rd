@@ -12,4 +12,3 @@ List with 2 entries. The first one with the base_url and the second one with the
 \description{
 List with 2 entries. The first one with the base_url and the second one with the utils_url#'
 }
-

@@ -24,7 +24,9 @@ iadbmsearch <- function(value = 'ALL', lang='EN'){
   
   url = paste0(urls$base_url,urlmeta,searchType,searchvalue,searchLanguage,urls$utils_url)
   
-  print(url)
+  #print(url)
   iadbget.raw(url)  
 }
+
+
 
