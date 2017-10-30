@@ -1,4 +1,4 @@
-*Esta herramienta digital está publicada en páina web de la iniciativa [Código para el Desarrollo](http://code.iadb.org/es/repositorio/24/libreria-r-numeros-para-el-desarrollo)*
+*Esta herramienta digital está publicada en página web de la iniciativa [Código para el Desarrollo](http://code.iadb.org/es/repositorio/24/libreria-r-numeros-para-el-desarrollo)*
 
 # Librería R - Números para el Desarrollo (iadbstats)
 ---
