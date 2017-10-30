@@ -1,3 +1,5 @@
+*Esta herramienta digital está publicada en la iniciativa [Código para el Desarrollo](http://code.iadb.org/es/repositorio/24/libreria-r-numeros-para-el-desarrollo)*
+
 # Librería R - Números para el Desarrollo (iadbstats)
 ---
 *Iadbstats* es la librería en R que permite la descarga automática a un ambiente de desarrollo en R, de los catálogos de datos alojados en el portal de datos abiertos del Banco Interamericano de Desarrollo, ([Números para el Desarrollo](https://data.iadb.org/NumbersForDevelopment/NumbersForDevelopment)). Este portal dispone de los indicadores socioeconómicos de América Latina y el Caribe más relevantes.
