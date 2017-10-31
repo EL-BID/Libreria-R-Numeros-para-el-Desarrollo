@@ -23,6 +23,13 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
   if(country=="ALL"&& stringr::str_count(indicatorcode, ',')>9) stop("When All country data is requested, data can be requested for a maximum of 10 indicators")
   
   urlmeta <- "datasitedata?"
+  
+  #Country
+  if(as.character(country)!="all"&& length(country)>1)
+  {
+    country<-paste0(country,collapse=",") 
+  }
+
   searchcountry <- paste0("countrycode=",country)
   searchfrequency <- paste0("&frequency=",frequency)
   searchLanguage <- "&languagecode=EN"
@@ -32,7 +39,8 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
   
   #print(lenght(indicatorCode))
   url <- paste0(urls$base_url,urlmeta,searchcountry,searchfrequency,searchLanguage,searchIndicator,urls$utils_url)
-
+  
+  print(url)
   #url
   iadbget.raw(url)  
 }
