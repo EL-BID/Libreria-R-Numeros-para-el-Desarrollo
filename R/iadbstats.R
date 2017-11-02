@@ -40,7 +40,7 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
   #print(lenght(indicatorCode))
   url <- paste0(urls$base_url,urlmeta,searchcountry,searchfrequency,searchLanguage,searchIndicator,urls$utils_url)
   
-  print(url)
+  #print(url)
   #url
   iadbget.raw(url)  
 }
