@@ -28,5 +28,3 @@ iadbmsearch <- function(value = 'ALL', lang='EN'){
   iadbget.raw(url)  
 }
 
-
-

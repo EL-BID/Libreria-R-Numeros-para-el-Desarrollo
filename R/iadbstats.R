@@ -15,7 +15,7 @@
 #' iadbstats(country="COL",frequency="year",indicatorcode="SOC_050")
 #' iadbstats(country="ARG,COL",frequency="year",indicatorcode="SOC_050")
 iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
-
+  
   if(country=="ALL" && indicatorcode=="ALL") stop("All countries and All indicators cannot be requested")
   
   if(indicatorcode=="ALL"&& stringr::str_count(country, ',')>3) stop("When All indicators data is requested, data can be requested for a maximum of 4 countries")
@@ -29,7 +29,7 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
   {
     country<-paste0(country,collapse=",") 
   }
-
+  
   searchcountry <- paste0("countrycode=",country)
   searchfrequency <- paste0("&frequency=",frequency)
   searchLanguage <- "&languagecode=EN"
@@ -58,9 +58,9 @@ iadbstats <- function(country="ALL",frequency="year",indicatorcode="ALL"){
 #' codes=c("SOC_050","SOC_057")
 #' iadbstats.list(indicatorCodes=codes)
 iadbstats.list <- function(frequency="year",indicatorCodes,country="ALL"){
-
+  
   scountry=country
- 
+  
   #split the codes into groups of maximum 10 indicator
   df = split(indicatorCodes, ceiling(seq_along(indicatorCodes)/10))
   
@@ -100,4 +100,3 @@ iadbstats.countries<-function()
   
   df_iadb_ct
 }
-
