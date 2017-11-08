@@ -49,7 +49,6 @@ head(data)
 3         ARG        Argentina       SOC_050 % of households economically headed by females Social Outlook Demographics 2011                           Year          37.323 PERCENT   
 4         ARG        Argentina       SOC_050 % of households economically headed by females Social Outlook Demographics 1996                           Year          29.247 PERCENT   
 5         ARG        Argentina       SOC_050 % of households economically headed by females Social Outlook Demographics 2009                           Year          36.596 PERCENT   
-6         ARG        Argentina       SOC_050 % of households economically headed by females Social Outlook Demographics 2000                           Year          31.698 PERCENT 
 ```
 
 
